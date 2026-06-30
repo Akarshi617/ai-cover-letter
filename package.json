@@ -1,5 +1,9 @@
+
 {
   "name": "ai-cover-letter",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
 }
