@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cover Letter Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="box">
+  <h1>AI Cover Letter Generator</h1>
+  <p class="sub">Sprint 4 - Phase 1 (template based, no API yet)</p>
+
+  <form id="myForm">
+    <label>Candidate Name</label>
+    <input type="text" id="name" required>
+
+    <label>Job Role</label>
+    <input type="text" id="role" required>
+
+    <label>Target Company</label>
+    <input type="text" id="company" required>
+
+    <label>Key Skills</label>
+    <textarea id="skills" required></textarea>
+
+    <button type="submit">Generate</button>
+  </form>
+
+  <div id="output">
+    <label>Your Letter</label>
+    <div id="letter"></div>
+    <button id="copyBtn">Copy</button>
+    <span id="msg"></span>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
