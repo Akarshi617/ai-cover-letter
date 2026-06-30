@@ -12,12 +12,18 @@ formEl.onsubmit = async function (e) {
   var role1 = document.getElementById("role").value;
   var company1 = document.getElementById("company").value;
   var skills1 = document.getElementById("skills").value;
+  var resumeFile = document.getElementById("resume").files[0];
 
   // show generating state
   generateBtn.disabled = true;
   generateBtn.innerText = "Generating...";
   outputDiv.style.display = "none";
   msg.innerText = "";
+
+  var resumeBase64 = null;
+  if (resumeFile) {
+    resumeBase64 = await fileToBase64(resumeFile);
+  }
 
   try {
     var res = await fetch("/api/generate", {
@@ -27,7 +33,8 @@ formEl.onsubmit = async function (e) {
         name: name1,
         role: role1,
         company: company1,
-        skills: skills1
+        skills: skills1,
+        resume: resumeBase64
       })
     });
 
@@ -36,7 +43,7 @@ formEl.onsubmit = async function (e) {
     if (data.error) {
       letterBox.innerText = "Error: " + data.error;
     } else {
-      letterBox.innerText = data.letter;
+      letterBox.innerHTML = data.letter;
     }
 
     outputDiv.style.display = "block";
@@ -48,6 +55,17 @@ formEl.onsubmit = async function (e) {
   generateBtn.disabled = false;
   generateBtn.innerText = "Generate";
 };
+
+function fileToBase64(file) {
+  return new Promise(function (resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      resolve(reader.result.split(",")[1]);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 copyBtn.onclick = function () {
   navigator.clipboard.writeText(letterBox.innerText);
